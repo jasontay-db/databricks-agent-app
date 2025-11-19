@@ -1,0 +1,28 @@
+# Databricks App configuration for the FastAPI file upload application
+resources:
+  apps:
+    databricks_agent_app:
+      name: databricks_agent_app
+      description: "FastAPI app for uploading files to Databricks Volumes"
+      
+      resources:
+        - name: main
+          description: "Main FastAPI application"
+          sql_warehouse_id: ${var.warehouse_id}
+          
+      # App configuration
+      config:
+        command:
+          - "uvicorn"
+          - "databricks_agent_app.main:app"
+          - "--host"
+          - "0.0.0.0"
+          - "--port"
+          - "8000"
+        
+        env:
+          - name: PORT
+            value: "8000"
+          - name: HOST
+            value: "0.0.0.0"
+
